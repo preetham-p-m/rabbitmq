@@ -22,7 +22,7 @@ namespace Consumer
 
             var consumer = new EventingBasicConsumer(this.channel);
 
-            consumer.Received += (medal, ea) =>
+            consumer.Received += (_, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);

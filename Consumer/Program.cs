@@ -6,8 +6,6 @@ namespace Consumer
     {
         public static void Main(string[] args)
         {
-            var random = new Random();
-
             var factory = new ConnectionFactory
             {
                 HostName = "localhost"

@@ -21,7 +21,7 @@
             this.channel.QueueDeclare(queue: "letterbox", exclusive: false, durable: false, arguments: null, autoDelete: false);
 
             var consumer = new EventingBasicConsumer(this.channel);
-            consumer.Received += (model, ea) =>
+            consumer.Received += (_, ea) =>
             {
                 var processingTime = this.random.Next(8, 20);
 
