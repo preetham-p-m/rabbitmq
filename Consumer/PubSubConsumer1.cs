@@ -18,7 +18,7 @@ namespace Consumer
             this.channel.ExchangeDeclare("pub_sub", ExchangeType.Fanout);
 
             this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1,global: false);
-            var queue = this.channel.QueueDeclare(queue: "", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            var queue = this.channel.QueueDeclare(queue: "", durable: false, exclusive: true, autoDelete: false, arguments: null);
 
             var consumer = new EventingBasicConsumer(this.channel);
 
@@ -35,8 +35,6 @@ namespace Consumer
             this.channel.BasicConsume(queue: queue.QueueName, autoAck:true, consumer: consumer);
 
             Console.ReadKey();
-
-            this.channel.QueueDelete(queue.QueueName);
         }
     }
 }
