@@ -1,5 +1,7 @@
 namespace Producer
 {
+    using CompetingConsumer;
+    using PubSub;
     using RabbitMQ.Client;
 
     internal class Program

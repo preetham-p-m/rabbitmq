@@ -1,15 +1,15 @@
-﻿namespace Consumer
+﻿namespace Consumer.CompetingConsumer
 {
     using System.Text;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal class CompetingConsumer
+    internal class CompetingConsumers
     {
         private readonly IModel channel;
         private readonly Random random;
 
-        public CompetingConsumer(IModel channel)
+        public CompetingConsumers(IModel channel)
         {
             this.channel = channel;
             this.random = new Random();

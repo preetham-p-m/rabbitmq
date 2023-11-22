@@ -1,4 +1,4 @@
-namespace Producer
+namespace Producer.PubSub
 {
     using System.Text;
     using RabbitMQ.Client;

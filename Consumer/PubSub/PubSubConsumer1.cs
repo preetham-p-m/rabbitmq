@@ -1,14 +1,14 @@
-namespace Consumer
+namespace Consumer.PubSub
 {
     using System.Text;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal class PubSubConsumer2
+    internal class PubSubConsumer1
     {
         private readonly IModel channel;
 
-        public PubSubConsumer2(IModel channel)
+        public PubSubConsumer1(IModel channel)
         {
             this.channel = channel;
         }
@@ -27,7 +27,7 @@ namespace Consumer
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                Console.WriteLine($"Consumer 2: {message}");
+                Console.WriteLine($"Consumer 1: {message}");
             };
 
             this.channel.QueueBind(queue: queue.QueueName, exchange: "pub_sub", routingKey: "");
@@ -35,8 +35,6 @@ namespace Consumer
             this.channel.BasicConsume(queue: queue.QueueName, autoAck:true, consumer: consumer);
 
             Console.ReadKey();
-
-            this.channel.QueueDelete(queue.QueueName);
         }
     }
 }

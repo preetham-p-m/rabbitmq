@@ -1,5 +1,7 @@
 namespace Consumer
 {
+    using PubSub;
+    using CompetingConsumer;
     using RabbitMQ.Client;
 
     internal class Program
@@ -21,7 +23,7 @@ namespace Consumer
             switch (mode)
             {
                 case "1":
-                    new CompetingConsumer(channel).ReceiveMessage();
+                    new CompetingConsumers(channel).ReceiveMessage();
                     break;
 
                 case "2.1":
