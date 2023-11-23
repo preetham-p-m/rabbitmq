@@ -3,9 +3,10 @@ namespace Producer
     using CompetingConsumer;
     using PubSub;
     using RabbitMQ.Client;
+    using RequestReply;
     using Topic;
 
-    internal class Program
+    internal sealed class Program
     {
         private static void Main(string[] args)
         {
@@ -20,12 +21,13 @@ namespace Producer
             Console.WriteLine("Producer Modes: \n"
                 + "Competing Producer - 1 \n"
                 + "PubSub Producer - 2 \n"
-                + "Topic Producer - 3 \n");
+                + "Topic Producer - 3 \n"
+                + "Client - 4\n");
 
             Console.Write("Please enter the number of your choice: ");
             var mode = Console.ReadLine();
 
-            var producerDelay = 3;
+            const int producerDelay = 3;
 
             switch (mode)
             {
@@ -39,6 +41,10 @@ namespace Producer
 
                 case "3":
                     new TopicPublisher(channel).SendMessage(producerDelay);
+                    break;
+
+                case "4":
+                    new Client(channel).StartRequest(producerDelay);
                     break;
             }
 

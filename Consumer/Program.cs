@@ -3,9 +3,10 @@ namespace Consumer
     using PubSub;
     using CompetingConsumer;
     using RabbitMQ.Client;
+    using RequestReply;
     using Topic;
 
-    internal class Program
+    internal sealed class Program
     {
         public static void Main(string[] args)
         {
@@ -23,7 +24,8 @@ namespace Consumer
                 + "PubSub Consumer 2 - 2.2 \n"
                 + "Topic Consumer {user.*.*} - 3.1 \n"
                 + "Topic Consumer 2 {*.europe.*} - 3.2 \n"
-                + "Topic Consumer 3 {#.payments} - 3.3 \n");
+                + "Topic Consumer 3 {#.payments} - 3.3 \n"
+                + "Server - 4\n");
 
             Console.Write("Please enter the number of your choice: ");
             var mode = Console.ReadLine();
@@ -52,6 +54,10 @@ namespace Consumer
 
                 case "3.3":
                     new PaymentsConsumer(channel).ReceiveMessage();
+                    break;
+
+                case "4":
+                    new Server(channel).StartProcessing();
                     break;
             }
         }
