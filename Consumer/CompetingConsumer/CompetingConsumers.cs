@@ -4,7 +4,7 @@
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal class CompetingConsumers
+    internal sealed class CompetingConsumers
     {
         private readonly IModel channel;
         private readonly Random random;

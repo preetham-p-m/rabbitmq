@@ -4,7 +4,7 @@ namespace Consumer.Topic
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    public class PaymentsConsumer
+    internal sealed class PaymentsConsumer
     {
         private readonly IModel channel;
 

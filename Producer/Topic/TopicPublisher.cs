@@ -3,12 +3,11 @@ namespace Producer.Topic
     using System.Text;
     using RabbitMQ.Client;
 
-    public class TopicPublisher
+    internal sealed class TopicPublisher
     {
         private const string MessageTemplate = "Topic Message {0}";
 
         private readonly IModel channel;
-
 
         public TopicPublisher(IModel channel)
         {

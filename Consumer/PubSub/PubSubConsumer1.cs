@@ -4,7 +4,7 @@ namespace Consumer.PubSub
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal class PubSubConsumer1
+    internal sealed class PubSubConsumer1
     {
         private readonly IModel channel;
 
@@ -15,7 +15,7 @@ namespace Consumer.PubSub
 
         public void ReceiveMessage()
         {
-            this.channel.ExchangeDeclare("pub_sub", ExchangeType.Fanout);
+            this.channel.ExchangeDeclare("Pub.Sub", ExchangeType.Fanout);
 
             this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1,global: false);
             var queue = this.channel.QueueDeclare(queue: "", durable: false, exclusive: true, autoDelete: false, arguments: null);
@@ -30,7 +30,7 @@ namespace Consumer.PubSub
                 Console.WriteLine($"Consumer 1: {message}");
             };
 
-            this.channel.QueueBind(queue: queue.QueueName, exchange: "pub_sub", routingKey: "");
+            this.channel.QueueBind(queue: queue.QueueName, exchange: "Pub.Sub", routingKey: "");
 
             this.channel.BasicConsume(queue: queue.QueueName, autoAck:true, consumer: consumer);
 

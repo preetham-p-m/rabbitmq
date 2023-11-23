@@ -3,7 +3,7 @@ namespace Producer.PubSub
     using System.Text;
     using RabbitMQ.Client;
 
-    internal class PubSubProducer
+    internal sealed class PubSubProducer
     {
         private const string MessageTemplate = "Pubsub Message {0}";
 
@@ -27,7 +27,7 @@ namespace Producer.PubSub
                 var message = string.Format(MessageTemplate, _messageNumber++);
                 var encodedMessage = Encoding.UTF8.GetBytes(message);
 
-                this.channel.BasicPublish("pub_sub", "", null, encodedMessage);
+                this.channel.BasicPublish("Pub.Sub", "", null, encodedMessage);
                 Console.WriteLine(message);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
