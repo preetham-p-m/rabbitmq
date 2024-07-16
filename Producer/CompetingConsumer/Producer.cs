@@ -3,7 +3,7 @@
     using System.Text;
     using RabbitMQ.Client;
 
-    internal sealed class Producer
+    internal sealed class Producer : IProducer
     {
         private const string MessageTemplate = "Message Number: {0}";
 

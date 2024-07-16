@@ -3,7 +3,7 @@ namespace Producer.PubSub
     using System.Text;
     using RabbitMQ.Client;
 
-    internal sealed class PubSubProducer
+    internal sealed class PubSubProducer : IProducer
     {
         private const string MessageTemplate = "Pubsub Message {0}";
 
@@ -31,6 +31,11 @@ namespace Producer.PubSub
                 Console.WriteLine(message);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
+
+                if (Console.ReadLine() != null)
+                {
+                    break;
+                }
             }
         }
     }

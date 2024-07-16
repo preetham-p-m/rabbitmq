@@ -4,7 +4,7 @@ namespace Producer.RequestReply
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal sealed class Client
+    internal sealed class Client : IProducer
     {
         private const string MessageTemplate = "Request from client {0}";
 
@@ -15,7 +15,7 @@ namespace Producer.RequestReply
             this.channel = channel;
         }
 
-        public void StartRequest(int delay)
+        public void SendMessage(int delay)
         {
             Console.WriteLine($"Application started sending the message. Message will be sent every {delay} seconds.");
 
@@ -45,6 +45,11 @@ namespace Producer.RequestReply
                 Console.WriteLine(requestMessage);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
+
+                if (Console.ReadLine() != null)
+                {
+                    break;
+                }
             }
 
         }

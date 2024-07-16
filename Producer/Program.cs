@@ -29,24 +29,16 @@ namespace Producer
 
             const int producerDelay = 3;
 
-            switch (mode)
+            IProducer producer = mode switch
             {
-                case "1":
-                    new Producer(channel).SendMessage(producerDelay);
-                    break;
+                "1" => new Producer(channel),
+                "2" => new PubSubProducer(channel),
+                "3" => new TopicPublisher(channel),
+                "4" => new Client(channel),
+                _ => throw new ArgumentException("Invalid Producer")
+            };
 
-                case "2":
-                    new PubSubProducer(channel).SendMessage(producerDelay);
-                    break;
-
-                case "3":
-                    new TopicPublisher(channel).SendMessage(producerDelay);
-                    break;
-
-                case "4":
-                    new Client(channel).StartRequest(producerDelay);
-                    break;
-            }
+            producer.SendMessage(producerDelay);
 
         }
     }

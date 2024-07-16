@@ -4,7 +4,7 @@ namespace Consumer.Topic
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal sealed class UserConsumer
+    internal sealed class UserConsumer : IConsumer
     {
         private readonly IModel channel;
 
@@ -17,7 +17,7 @@ namespace Consumer.Topic
         {
             this.channel.ExchangeDeclare(exchange: "topic", ExchangeType.Topic);
 
-            this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1,global: false);
+            this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             var queue = this.channel.QueueDeclare(queue: "", durable: false, exclusive: true, autoDelete: false, arguments: null);
 
             var consumer = new EventingBasicConsumer(this.channel);
@@ -32,7 +32,7 @@ namespace Consumer.Topic
 
             this.channel.QueueBind(queue: queue.QueueName, exchange: "topic", routingKey: "user.*.*");
 
-            this.channel.BasicConsume(queue: queue.QueueName, autoAck:true, consumer: consumer);
+            this.channel.BasicConsume(queue: queue.QueueName, autoAck: true, consumer: consumer);
 
             Console.ReadKey();
         }

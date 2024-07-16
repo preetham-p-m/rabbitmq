@@ -30,36 +30,19 @@ namespace Consumer
             Console.Write("Please enter the number of your choice: ");
             var mode = Console.ReadLine();
 
-            switch (mode)
+            IConsumer consumer = mode switch
             {
-                case "1":
-                    new CompetingConsumers(channel).ReceiveMessage();
-                    break;
+                "1" => new CompetingConsumers(channel),
+                "2.1" => new PubSubConsumer1(channel),
+                "2.2" => new PubSubConsumer2(channel),
+                "3.1" => new UserConsumer(channel),
+                "3.2" => new EuropeConsumer(channel),
+                "3.3" => new PaymentsConsumer(channel),
+                "4" => new Server(channel),
+                _ => throw new ArgumentException("Invalid Consumer")
+            };
 
-                case "2.1":
-                    new PubSubConsumer1(channel).ReceiveMessage();
-                    break;
-
-                case "2.2":
-                    new PubSubConsumer2(channel).ReceiveMessage();
-                    break;
-
-                case "3.1":
-                    new UserConsumer(channel).ReceiveMessage();
-                    break;
-
-                case "3.2":
-                    new EuropeConsumer(channel).ReceiveMessage();
-                    break;
-
-                case "3.3":
-                    new PaymentsConsumer(channel).ReceiveMessage();
-                    break;
-
-                case "4":
-                    new Server(channel).StartProcessing();
-                    break;
-            }
+            consumer.ReceiveMessage();
         }
     }
 }

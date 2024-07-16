@@ -4,7 +4,7 @@
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal sealed class CompetingConsumers
+    internal sealed class CompetingConsumers : IConsumer
     {
         private readonly IModel channel;
         private readonly Random random;
@@ -17,7 +17,7 @@
 
         public void ReceiveMessage()
         {
-            this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1,global: false);
+            this.channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             this.channel.QueueDeclare(queue: "letterbox", exclusive: false, durable: false, arguments: null, autoDelete: false);
 
             var consumer = new EventingBasicConsumer(this.channel);

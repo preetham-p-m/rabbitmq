@@ -4,7 +4,7 @@ namespace Consumer.RequestReply
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal sealed class Server
+    internal sealed class Server : IConsumer
     {
         private const string ReplyTemplate = "Replay to : {0}";
         private readonly IModel channel;
@@ -14,7 +14,7 @@ namespace Consumer.RequestReply
             this.channel = channel;
         }
 
-        public void StartProcessing()
+        public void ReceiveMessage()
         {
             var queue = this.channel.QueueDeclare("request.queue", exclusive: false);
 

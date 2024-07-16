@@ -3,7 +3,7 @@ namespace Producer.Topic
     using System.Text;
     using RabbitMQ.Client;
 
-    internal sealed class TopicPublisher
+    internal sealed class TopicPublisher : IProducer
     {
         private const string MessageTemplate = "Topic Message {0}";
 
@@ -34,6 +34,11 @@ namespace Producer.Topic
                 Console.WriteLine(europePayments);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
+
+                if (Console.ReadLine() != null)
+                {
+                    break;
+                }
             }
         }
     }
