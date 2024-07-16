@@ -7,7 +7,7 @@ namespace Producer.PubSub
     {
         private const string MessageTemplate = "Pubsub Message {0}";
 
-        private static int _messageNumber = 1;
+        private int _messageNumber = 1;
 
         private readonly IModel channel;
 
