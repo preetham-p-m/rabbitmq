@@ -31,11 +31,6 @@ namespace Producer.PubSub
                 Console.WriteLine(message);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
-
-                if (Console.ReadLine() != null)
-                {
-                    break;
-                }
             }
         }
     }

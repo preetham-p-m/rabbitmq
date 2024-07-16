@@ -33,8 +33,8 @@ namespace Consumer
             IConsumer consumer = mode switch
             {
                 "1" => new CompetingConsumers(channel),
-                "2.1" => new PubSubConsumer1(channel),
-                "2.2" => new PubSubConsumer2(channel),
+                "2.1" => new PubSubConsumer(channel, "Consumer 1"),
+                "2.2" => new PubSubConsumer(channel, "Consumer 2"),
                 "3.1" => new UserConsumer(channel),
                 "3.2" => new EuropeConsumer(channel),
                 "3.3" => new PaymentsConsumer(channel),

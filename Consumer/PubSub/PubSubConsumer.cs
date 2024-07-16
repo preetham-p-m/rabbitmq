@@ -4,13 +4,16 @@ namespace Consumer.PubSub
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    internal sealed class PubSubConsumer2 : IConsumer
+    internal sealed class PubSubConsumer : IConsumer
     {
         private readonly IModel channel;
 
-        public PubSubConsumer2(IModel channel)
+        private readonly string consumerName;
+
+        public PubSubConsumer(IModel channel, string consumerName)
         {
             this.channel = channel;
+            this.consumerName = consumerName;
         }
 
         public void ReceiveMessage()
@@ -27,7 +30,7 @@ namespace Consumer.PubSub
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                Console.WriteLine($"Consumer 2: {message}");
+                Console.WriteLine($"{this.consumerName}: {message}");
             };
 
             this.channel.QueueBind(queue: queue.QueueName, exchange: "Pub.Sub", routingKey: "");

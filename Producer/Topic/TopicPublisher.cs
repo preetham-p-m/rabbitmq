@@ -34,11 +34,6 @@ namespace Producer.Topic
                 Console.WriteLine(europePayments);
 
                 Task.Delay(TimeSpan.FromSeconds(delay)).Wait();
-
-                if (Console.ReadLine() != null)
-                {
-                    break;
-                }
             }
         }
     }
